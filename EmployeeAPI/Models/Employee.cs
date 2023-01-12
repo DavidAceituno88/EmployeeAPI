@@ -15,5 +15,5 @@ public partial class Employee
 
     public int? IdPosition { get; set; }
 
-    public virtual Position? IdPositionNavigation { get; set; }
+    public virtual Position? oPosition { get; set; }
 }
