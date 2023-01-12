@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,7 +42,7 @@ public partial class DbemployeesContext : DbContext
                 .HasMaxLength(60)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.IdPositionNavigation).WithMany(p => p.Employees)
+            entity.HasOne(d => d.oPosition).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.IdPosition)
                 .HasConstraintName("FK_Position");
         });
