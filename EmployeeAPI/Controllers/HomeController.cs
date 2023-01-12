@@ -1,4 +1,4 @@
-﻿using EmployeeAPI.Models;
+using EmployeeAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,11 +6,11 @@ namespace EmployeeAPI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly DbemployeesContext _DBContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DbemployeesContext context)
         {
-            _logger = logger;
+            _DBContext = context;
         }
 
         public IActionResult Index()
@@ -18,15 +18,6 @@ namespace EmployeeAPI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      
     }
 }
