@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using EmployeeAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -15,7 +17,8 @@ namespace EmployeeAPI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Employee> list = _DBContext.Employees.Include(e => e.oPosition).ToList();
+            return View(list);
         }
 
       
