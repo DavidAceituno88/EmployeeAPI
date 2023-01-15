@@ -1,0 +1,53 @@
+@model EmployeeAPI.Models.ViewModels.EmployeeVM
+@{
+    ViewData["Title"] = "Employee_Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.oEmployee.IdEmployee == 0)
+{
+    <h1>Create Employee</h1>
+}
+else
+{
+    <h1>Edit Employee</h1>
+}
+
+<div class="row">
+    <div class ="col-sm-4">
+        <form asp-action="Employee_Detail" asp-controller="Home" method="post">
+            <input type="hidden" asp-for="oEmployee.IdEmployee" />
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.FullName">Full Name</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.FullName" type="text" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.Email">Email</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.Email" type="text" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.Phone">Phone</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.Phone" type="text" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.IdPosition">Position</label>
+                <select class="form-select from-select-sm" asp-for="oEmployee.IdPosition" asp-items="@Model.oPositionList">
+                    <option selected disabled>-- Select --</option>
+                </select>
+            </div>
+
+            <div class="mb-2">
+                @if (Model.oEmployee.IdEmployee == 0)
+                {
+                    <button class="btn btn-primary btn-sm w-25" type="submit">Create</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary btn-sm w-25" type="submit">Update</button>
+                }
+                <a class="btn btn-dark btn-sm" asp-action="Index" asp-controller="Home">Back</a>
+            </div>
+
+        </form>
+    </div>
+</div>
