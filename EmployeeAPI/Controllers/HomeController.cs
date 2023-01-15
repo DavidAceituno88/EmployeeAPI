@@ -21,8 +21,9 @@ namespace EmployeeAPI.Controllers
             List<Employee> list = _DBContext.Employees.Include(e => e.oPosition).ToList();
             return View(list);
         }
-
-        public IActionResult Employee_Detail()
+        
+        [HttpGet]
+        public IActionResult Employee_Detail(int idEmployee)
         {
             EmployeeVM oEmployeeVM = new EmployeeVM()
             {
@@ -34,6 +35,11 @@ namespace EmployeeAPI.Controllers
                 }).ToList()
             };
 
+            if(idEmployee != 0)
+            {
+                oEmployeeVM.oEmployee = _DBContext.Employees.Find(idEmployee);
+            }
+
             return View(oEmployeeVM);
         }
         [HttpPost]
@@ -42,10 +48,35 @@ namespace EmployeeAPI.Controllers
            if (oEmployeeVM.oEmployee.IdEmployee == 0)
             {
                 _DBContext.Employees.Add(oEmployeeVM.oEmployee);
+            }else
+            {
+                _DBContext.Employees.Update(oEmployeeVM.oEmployee);
             }
             _DBContext.SaveChanges();
 
             return RedirectToAction("Index","Home");
+        }
+
+
+        //------------------- Delete ------------------------
+
+        [HttpGet]
+        public IActionResult Delete(int idEmployee)
+        {
+            Employee oEmployee = _DBContext.Employees.Include(e => e.oPosition).Where(e => e.IdEmployee == idEmployee).FirstOrDefault();
+            
+            return View(oEmployee);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Employee oEmployee)
+        {
+            _DBContext.Employees.Remove(oEmployee);
+            _DBContext.SaveChanges();
+
+            
+
+            return RedirectToAction("Index", "Home");
         }
 
     }
